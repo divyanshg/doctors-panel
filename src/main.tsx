@@ -11,9 +11,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App.tsx';
 import LoadingBar from './contexts/LoadingBar.tsx';
 import Protected from './layout/protected.tsx';
+import RoleGuard from './layout/role-guard.tsx';
 import UnAuth from './layout/unauth.tsx';
 import LoginPage from './pages/login/index.tsx';
-import Products from './pages/products/index.tsx';
+import Patients from './pages/Patients/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -24,14 +25,39 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Protected />,
+        errorElement: <div>Unauthorizedsda</div>,
         children: [
           {
             path: "/",
-            element: <App />,
+            element: <RoleGuard routeFor={["DOCTOR"]} />,
+            children: [
+              {
+                path: "/",
+                element: <App />,
+              },
+              {
+                path: "patients",
+                children: [
+                  {
+                    path: "/patients",
+                    element: <Patients />,
+                  },
+                  {
+                    path: ":id",
+                    element: <div>Test</div>,
+                  },
+                ],
+              },
+            ],
           },
           {
-            path: "products",
-            element: <Products />,
+            path: "/ph",
+            element: <RoleGuard routeFor={["PHARMACY"]} />,
+            children: [
+              {
+                element: <App />,
+              },
+            ],
           },
         ],
       },

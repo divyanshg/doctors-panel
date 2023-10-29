@@ -40,15 +40,24 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  as?: React.ElementType;
   isLoading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { className, variant, size, isLoading = false, asChild = false, ...props },
+    {
+      className,
+      as,
+      variant,
+      size,
+      isLoading = false,
+      asChild = false,
+      ...props
+    },
     ref
   ) => {
-    const Comp = asChild ? Slot : "button";
+    const Comp = asChild ? Slot : as ? as : "button";
     const { ref: lbRef } = useLoadingBar();
 
     React.useEffect(() => {

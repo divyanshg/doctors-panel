@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 
-type UserRoles = "USER" | "DOCTOR" | "PHARMACY";
+export type UserRoles = "USER" | "DOCTOR" | "PHARMACY";
 
 interface User {
   firstname: string;
   lastname: string;
+  email?: string;
   role: UserRoles;
 }
 
@@ -17,7 +18,7 @@ interface AuthState {
 
 interface AuthActions {
   setUser: (user: User) => void;
-  login: ({ user, token }: { user: User; token: string }) => void;
+  login: ({ email, password }: { email: string; password: string }) => void;
   logout: () => void;
 }
 
@@ -31,11 +32,16 @@ const authStore = create<AuthState & AuthActions>()(
         setUser(user) {
           set({ user, isAuthenticated: !!user });
         },
-        login({ user, token }) {
+        login({ email, password }) {
           set({
             isAuthenticated: true,
-            user,
-            token,
+            user: {
+              firstname: "John",
+              lastname: "Doe",
+              role: "DOCTOR",
+              email,
+            },
+            token: "1234567890",
           });
         },
         logout() {

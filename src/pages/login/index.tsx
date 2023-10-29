@@ -15,6 +15,11 @@ const Schema = z.object({
   password: z.string().min(8).max(32),
 });
 
+const initialValues = {
+  email: "",
+  password: "",
+};
+
 export default function LoginPage() {
   const { login } = useAuth();
 
@@ -27,10 +32,7 @@ export default function LoginPage() {
         </CardHeader>
         <Formik
           validationSchema={toFormikValidationSchema(Schema)}
-          initialValues={{
-            email: "",
-            password: "",
-          }}
+          initialValues={initialValues}
           onSubmit={login}
         >
           {({ handleSubmit, handleChange, values, handleBlur, errors }) => (
