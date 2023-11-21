@@ -12,9 +12,9 @@ function Doctor({ children }: { children: React.ReactNode }) {
     return (
       <main className="flex flex-row justify-start min-h-screen">
         <Sidebar />
-        <div className="flex-col flex-1 bg-gray-900">
-          <Topbar />
-          <div className="absolute min-h-screen px-6 py-4 rounded-t-lg bg-slate-100 top-16 left-[300px] w-[84.215%]">
+        <div className="flex-col flex-1 bg-red-400">
+          {/* <Topbar /> */}
+          <div className="absolute min-h-screen bg-white left-[44px] w-[97.7%]">
             {children}
           </div>
         </div>
