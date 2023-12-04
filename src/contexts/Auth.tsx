@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     async (data: unknown) => {
       setUser(data);
       navigate("/profile");
-    },
+    },  
     [navigate, setUser]
   );
 
